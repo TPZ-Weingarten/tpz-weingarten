@@ -1,0 +1,48 @@
+# Team: Reihenfolge hier = Reihenfolge auf der Website.
+# Fotos liegen in src/assets/img/team/ (quadratisch, mind. 300 × 300 px).
+heading: Unser Team
+subtitle: Physiotherapie mit uns – für Sie
+
+members:
+  - name: Franz-Josef Kaiser
+    photo: team/franz-josef-kaiser.jpg
+    roles: [Geschäftsführer, Master of Chiropractic n.A., Heilpraktiker-Physiotherapie]
+  - name: Philip Zell
+    photo: team/philip-zell.jpg
+    roles: [Fachliche Leitung PT, Physiotherapeut]
+  - name: Bettina König
+    photo: team/bettina-koenig.jpg
+    roles: [Fachliche Leitung Ergo, Ergotherapeutin]
+  - name: Sarah Hukle
+    photo: team/sarah-hukle.jpg
+    roles: [Physiotherapeutin]
+  - name: Judith Metzger
+    photo: team/judith-metzger.jpg
+    roles: [Physiotherapeutin]
+  - name: Alexandra Torgyan
+    photo: team/alexandra-torgyan.jpg
+    roles: [Physiotherapeutin]
+  - name: Dimitri Duwanow
+    photo: team/dimitri-duwanow.jpg
+    roles: [Sportphysiotherapeut, Medizinischer Bademeister und Masseur]
+  - name: Agnes Joffroy
+    photo: team/agnes-joffroy.jpg
+    roles: [Physiotherapeutin]
+  - name: Jenny Baumgart
+    photo: team/jenny-baumgart.jpg
+    roles: [Sportwissenschaftlerin B.A.]
+  - name: Tim Lehle
+    photo: team/tim-lehle.jpg
+    roles: [Dualer Student Sport und Bewegungstherapie]
+  - name: Rita Zerbes
+    photo: team/rita-zerbes.jpg
+    roles: [Masseurin]
+  - name: Nina Bentele
+    photo: team/nina-bentele.jpg
+    roles: [Buchhaltung und Büro]
+  - name: Diana Horn
+    photo: team/diana-horn.jpg
+    roles: [Büro und Sprechstunde]
+  - name: Selina Aydin
+    photo: team/selina-aydin.jpg
+    roles: [Büro und Sprechstunde]

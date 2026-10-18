@@ -1,0 +1,82 @@
+---
+import { getEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import { img } from '../lib/images';
+
+const team = (await getEntry('team', 'team'))!.data;
+---
+
+<section class="section section--tint team" aria-labelledby="team-heading">
+  <div class="container">
+    <header>
+      <p class="eyebrow">Therapiezentrum Untere Breite Weingarten</p>
+      <h2 id="team-heading">{team.heading}</h2>
+      <p class="lead">{team.subtitle}</p>
+    </header>
+
+    <ul>
+      {
+        team.members.map((m) => (
+          <li>
+            <Image src={img(m.photo)} alt={`Foto von ${m.name}`} width={240} height={240} fit="cover" />
+            <h3>{m.name}</h3>
+            {m.roles.map((r) => <p>{r}</p>)}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(10rem, 40%), 1fr));
+    gap: 2.5rem 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    text-align: center;
+  }
+
+  li :global(img) {
+    width: 8.5rem;
+    height: 8.5rem;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #fff;
+    box-shadow: var(--shadow);
+  }
+
+  h3 {
+    margin: 0 0 0.25rem;
+    font-size: 1.05rem;
+  }
+
+  @media (max-width: 520px) {
+    header .eyebrow::before {
+      display: none;
+    }
+
+    li :global(img) {
+      width: 6.5rem;
+      height: 6.5rem;
+    }
+  }
+
+  li p {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    color: var(--muted);
+  }
+</style>

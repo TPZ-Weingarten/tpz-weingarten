@@ -1,0 +1,37 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+
+interface Props {
+  /** Dateiname in src/content/pages ohne ".md" */
+  page: string;
+  showContact?: boolean;
+  /** Markdown-Inhalt der Seite anzeigen (Standard: ja) */
+  showBody?: boolean;
+}
+
+const { page, showContact, showBody = true } = Astro.props;
+const entry = await getEntry('pages', page);
+if (!entry) throw new Error(`Seite nicht gefunden: src/content/pages/${page}.md`);
+
+const { Content } = await render(entry);
+const { title, description, heading, subtitle, hero } = entry.data;
+---
+
+<BaseLayout title={title} description={description} ogImage={hero} showContact={showContact}>
+  <PageHero heading={heading ?? title} subtitle={subtitle} image={hero} />
+  <slot name="before" />
+  {
+    showBody && entry.body?.trim() && (
+      <section class="section">
+        <div class="container">
+          <div class="prose">
+            <Content />
+          </div>
+        </div>
+      </section>
+    )
+  }
+  <slot />
+</BaseLayout>

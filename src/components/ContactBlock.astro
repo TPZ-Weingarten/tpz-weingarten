@@ -1,0 +1,120 @@
+---
+import { getEntry } from 'astro:content';
+import Icon from './Icon.astro';
+import { url } from '../lib/url';
+
+const site = (await getEntry('site', 'site'))!.data;
+---
+
+<section class="contact" aria-labelledby="contact-heading">
+  <div class="container grid">
+    <div>
+      <p class="eyebrow">Kontakt</p>
+      <h2 id="contact-heading">{site.name}</h2>
+      <p class="links">
+        <a class="btn btn--primary" href={`tel:${site.phone.href}`}><Icon name="phone" size={18} /> Jetzt anrufen</a>
+        <a class="btn btn--outline" href={url('/sprechzeiten')}><Icon name="clock" size={18} /> Sprechzeiten</a>
+      </p>
+    </div>
+
+    <ul class="cards">
+      <li>
+        <Icon name="pin" class="ic" />
+        <div>
+          <strong>Adresse</strong>
+          <span>{site.address.street}<br />{site.address.zip} {site.address.city}</span>
+          <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer">Wegbeschreibung <Icon name="arrow" size={16} /></a>
+        </div>
+      </li>
+      <li>
+        <Icon name="phone" class="ic" />
+        <div>
+          <strong>Telefon</strong>
+          <a href={`tel:${site.phone.href}`}>{site.phone.display}</a>
+        </div>
+      </li>
+      <li>
+        <Icon name="mail" class="ic" />
+        <div>
+          <strong>E-Mail</strong>
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .contact {
+    padding-block: clamp(3rem, 2rem + 3vw, 4.5rem);
+    border-top: 1px solid var(--green-line);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  h2 {
+    font-size: clamp(1.4rem, 1.1rem + 1vw, 1.9rem);
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1.5rem 0 0;
+  }
+
+  .cards {
+    display: grid;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .cards li {
+    display: flex;
+    gap: 1rem;
+    padding: 1.1rem 1.25rem;
+    background: var(--bg);
+    border: 1px solid var(--green-line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  .cards div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .cards strong {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .cards a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-weight: 600;
+  }
+
+  .ic {
+    flex: none;
+    color: var(--green-dark);
+    margin-top: 0.15rem;
+  }
+
+  @media (max-width: 860px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

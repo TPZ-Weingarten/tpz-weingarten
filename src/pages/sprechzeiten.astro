@@ -1,0 +1,18 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import HoursTable from '../components/HoursTable.astro';
+---
+
+<PageLayout page="sprechzeiten">
+  <section slot="before" class="section hours">
+    <div class="container">
+      <HoursTable />
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .hours {
+    padding-bottom: 0;
+  }
+</style>

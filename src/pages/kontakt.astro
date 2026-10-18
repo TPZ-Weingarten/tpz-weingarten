@@ -1,0 +1,86 @@
+---
+import { getEntry } from 'astro:content';
+import PageLayout from '../layouts/PageLayout.astro';
+import HoursTable from '../components/HoursTable.astro';
+import Icon from '../components/Icon.astro';
+
+const site = (await getEntry('site', 'site'))!.data;
+---
+
+<PageLayout page="kontakt" showContact={false}>
+  <section slot="before" class="section">
+    <div class="container">
+      <ul class="cards">
+        <li>
+          <Icon name="phone" size={28} />
+          <h2>Telefon</h2>
+          <a href={`tel:${site.phone.href}`}>{site.phone.display}</a>
+        </li>
+        <li>
+          <Icon name="mail" size={28} />
+          <h2>E-Mail</h2>
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </li>
+        <li>
+          <Icon name="pin" size={28} />
+          <h2>Adresse</h2>
+          <p>{site.address.street}<br />{site.address.zip} {site.address.city}</p>
+          <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer">Wegbeschreibung <Icon name="arrow" size={16} /></a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <p class="eyebrow">Erreichbarkeit</p>
+      <h2>Sprechzeiten</h2>
+      <HoursTable />
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .cards li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    padding: 1.75rem;
+    border: 1px solid var(--green-line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    color: var(--green-dark);
+  }
+
+  .cards h2 {
+    margin: 0.5rem 0 0;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .cards p {
+    margin: 0;
+    color: var(--text);
+  }
+
+  .cards a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    word-break: break-word;
+  }
+</style>

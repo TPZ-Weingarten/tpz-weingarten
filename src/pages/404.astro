@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { url } from '../lib/url';
+---
+
+<BaseLayout title="Seite nicht gefunden" noindex>
+  <PageHero heading="Hoppla! Seite nicht gefunden" subtitle="Fehler 404" />
+  <section class="section">
+    <div class="container">
+      <div class="prose">
+      <p>
+        Sie scheinen etwas zu suchen, was nicht existiert oder offline genommen wurde. Schauen Sie sich ruhig auf unserer
+        Seite um oder kehren Sie zur <a href={url('/')}>Startseite</a> zurück.
+      </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

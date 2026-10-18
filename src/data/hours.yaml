@@ -1,0 +1,19 @@
+# Sprechzeiten: erscheinen auf /sprechzeiten und /kontakt.
+groups:
+  - title: Sprechzeiten Rezeption
+    rows:
+      - days: Montag und Mittwoch
+        times: ["8.30 – 12.00 Uhr", "13.00 – 17.00 Uhr"]
+      - days: Dienstag
+        times: ["8.30 – 12.00 Uhr", "14.00 – 16.00 Uhr"]
+      - days: Donnerstag
+        times: ["8.30 – 12.00 Uhr", "14.00 – 17.00 Uhr"]
+      - days: Freitag
+        times: ["8.00 – 13.00 Uhr"]
+
+  - title: Öffnungszeiten Gerätebereich
+    rows:
+      - days: Montag bis Donnerstag
+        times: ["8.30 – 18.00 Uhr"]
+      - days: Freitag
+        times: ["8.30 – 16.00 Uhr"]

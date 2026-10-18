@@ -1,0 +1,18 @@
+---
+// Weiterleitung zur externen Patientenumfrage (wie auf der alten Website).
+const target = 'https://drucki-mucki.physio-s7.de/index.php/431289?lang=de';
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
+    <title>Weiterleitung zur Umfrage</title>
+  </head>
+  <body>
+    <p>Sie werden zur Umfrage weitergeleitet: <a href={target}>{target}</a></p>
+  </body>
+</html>

@@ -1,0 +1,80 @@
+---
+import { getEntry } from 'astro:content';
+import Icon from './Icon.astro';
+
+const hours = (await getEntry('hours', 'hours'))!.data;
+---
+
+<div class="hours">
+  {
+    hours.groups.map((g) => (
+      <section class="card">
+        <h3>
+          <Icon name="clock" size={22} />
+          {g.title}
+        </h3>
+        <dl>
+          {g.rows.map((r) => (
+            <div>
+              <dt>{r.days}</dt>
+              <dd>
+                {r.times.map((t) => (
+                  <span>{t}</span>
+                ))}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+    ))
+  }
+</div>
+
+<style>
+  .hours {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: 1.5rem;
+  }
+
+  .card {
+    padding: 1.5rem 1.75rem;
+    background: var(--bg);
+    border: 1px solid var(--green-line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+    color: var(--green-dark);
+  }
+
+  dl {
+    margin: 0;
+  }
+
+  dl > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    border-top: 1px solid var(--green-line);
+  }
+
+  dt {
+    font-weight: 600;
+  }
+
+  dd {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 0;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+</style>

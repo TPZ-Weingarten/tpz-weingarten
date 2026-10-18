@@ -1,0 +1,47 @@
+# Allgemeine Angaben: erscheinen im Kopf, im Kontaktblock, im Footer und in den Suchmaschinen-Daten.
+name: Therapiezentrum Untere Breite Weingarten
+description: >-
+  Unser Therapiezentrum im Herzen Oberschwabens ist insbesondere auf Erkrankungen, Schmerzen und deren
+  Behandlung aus den Fachbereichen der Neurologie, Orthopädie, Chirurgie, Pädiatrie und Prävention spezialisiert.
+
+address:
+  street: Maybachstraße 3 + 5 + 7
+  zip: "88250"
+  city: Weingarten
+
+phone:
+  display: 0751/5574976
+  href: "+497515574976"
+
+email: info@tpz-weingarten.de
+mapsUrl: https://maps.app.goo.gl/hUpSWkfwwrR6WEUB7
+
+social:
+  - name: Facebook
+    url: https://www.facebook.com/PhysioS7
+  - name: Instagram
+    url: https://www.instagram.com/physio.s7_m7
+
+# Hauptmenü
+nav:
+  - label: Behandlungskonzept
+    href: /behandlungskonzept
+  - label: Therapiespektrum
+    href: /therapiespektrum
+  - label: Sprechzeiten
+    href: /sprechzeiten
+  - label: Über uns
+    href: /ueber-uns
+  - label: Jobs
+    href: /jobs
+  - label: Kontakt
+    href: /kontakt
+
+# Links im Footer
+footerNav:
+  - label: Kontakt
+    href: /kontakt
+  - label: Impressum
+    href: /impressum
+  - label: Datenschutz
+    href: /datenschutz

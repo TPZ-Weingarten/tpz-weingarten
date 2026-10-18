@@ -1,0 +1,95 @@
+---
+import { getCollection, render } from 'astro:content';
+import PageLayout from '../layouts/PageLayout.astro';
+import Icon from '../components/Icon.astro';
+import { url } from '../lib/url';
+
+const jobs = await getCollection('jobs', (j) => j.data.active);
+const rendered = await Promise.all(jobs.map(async (j) => ({ ...j, Content: (await render(j)).Content })));
+---
+
+<PageLayout page="jobs" showBody={jobs.length === 0}>
+  {
+    rendered.map(({ data, Content }) => (
+      <article class="section">
+        <div class="container">
+          <p class="eyebrow">Wir stellen ein</p>
+          <h2 class="job-title">{data.title}</h2>
+          {data.subtitle && <p class="lead">{data.subtitle}</p>}
+
+          <div class="prose">
+            <Content />
+          </div>
+
+          {data.downloads.length > 0 && (
+            <div class="downloads">
+              <h3>Stellenanzeige zum Download</h3>
+              <ul>
+                {data.downloads.map((d) => (
+                  <li>
+                    <a href={url(d.file)} download>
+                      <img src={url(d.file)} alt={`Stellenanzeige ${data.title} – ${d.label}`} loading="lazy" width="200" />
+                      <span>
+                        <Icon name="download" size={18} /> {d.label} herunterladen
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </article>
+    ))
+  }
+</PageLayout>
+
+<style>
+  .job-title {
+    color: var(--green-dark);
+    margin-bottom: 0.25rem;
+  }
+
+  .lead {
+    margin-bottom: 2rem;
+  }
+
+  .downloads {
+    margin-top: 2.5rem;
+  }
+
+  .downloads ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .downloads a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .downloads img {
+    width: 12.5rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--green-line);
+    box-shadow: var(--shadow);
+    transition: transform 0.15s;
+  }
+
+  .downloads a:hover img {
+    transform: translateY(-2px);
+  }
+
+  .downloads span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+</style>
