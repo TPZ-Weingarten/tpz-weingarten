@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import PageLayout from '../layouts/PageLayout.astro';
+import Icon from '../components/Icon.astro';
 import { img } from '../lib/images';
 
 const all = (await getCollection('leistungen')).sort((a, b) => a.data.order - b.data.order);
@@ -14,11 +15,16 @@ const rendered = await Promise.all(detailed.map(async (l) => ({ ...l, Content: (
 <PageLayout page="therapiespektrum">
   <nav class="jump" aria-label="Leistungen">
     <div class="container">
-      <ul>
+      <button class="jump-toggle" type="button" aria-expanded="false" aria-controls="jump-list">
+        <span>Leistungen</span>
+        <span class="jump-current"></span>
+        <Icon name="chevron" size={20} class="chevron" />
+      </button>
+      <ul id="jump-list">
         {
           all.map((l) => (
             <li>
-              <a href={`#${l.id}`}>{l.data.title}</a>
+              <a href={`#${l.id}`}>{l.data.short ?? l.data.title}</a>
             </li>
           ))
         }
@@ -66,35 +72,38 @@ const rendered = await Promise.all(detailed.map(async (l) => ({ ...l, Content: (
 
 <style>
   .jump {
+    --jump-h: 3.5rem;
     position: sticky;
     top: var(--header-h);
     z-index: 10;
-    background: rgb(255 255 255 / 0.92);
+    background: rgb(255 255 255 / 0.94);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--green-line);
+    box-shadow: 0 8px 16px -14px rgb(0 0 0 / 0.4);
   }
 
   .jump ul {
     display: flex;
-    gap: 0.5rem;
+    flex-wrap: wrap;
+    gap: 0.4rem;
     margin: 0;
-    padding: 0.75rem 0;
+    padding: 0.6rem 0;
     list-style: none;
-    overflow-x: auto;
-    scrollbar-width: thin;
   }
 
   .jump a {
     display: block;
-    padding: 0.35rem 0.85rem;
+    padding: 0.25rem 0.75rem;
     border: 1px solid var(--green-line);
     border-radius: 999px;
-    font-size: 0.875rem;
+    font-size: 0.85rem;
     font-weight: 500;
-    white-space: nowrap;
     text-decoration: none;
     color: var(--text);
     background: var(--bg);
+    transition:
+      background-color 0.15s,
+      border-color 0.15s;
   }
 
   .jump a:hover {
@@ -102,8 +111,20 @@ const rendered = await Promise.all(detailed.map(async (l) => ({ ...l, Content: (
     background: var(--green-tint);
   }
 
-  .leistung {
-    scroll-margin-top: calc(var(--header-h) + 3.5rem);
+  .jump a[aria-current='true'] {
+    border-color: var(--green);
+    background: var(--green);
+    color: #16210a;
+  }
+
+  .jump-toggle {
+    display: none;
+  }
+
+  /* Abschnitte nicht unter Header + Leiste verstecken */
+  .leistung,
+  .more li {
+    scroll-margin-top: 5rem; /* zusätzlich zu scroll-padding-top am html (Header) */
   }
 
   .split {
@@ -124,7 +145,7 @@ const rendered = await Promise.all(detailed.map(async (l) => ({ ...l, Content: (
 
   .pic {
     position: sticky;
-    top: calc(var(--header-h) + 5rem);
+    top: calc(var(--header-h) + 7rem);
     width: 100%;
     aspect-ratio: 4 / 3;
     object-fit: cover;
@@ -152,10 +173,67 @@ const rendered = await Promise.all(detailed.map(async (l) => ({ ...l, Content: (
     border-radius: var(--radius-sm);
     box-shadow: var(--shadow);
     font-weight: 600;
-    scroll-margin-top: calc(var(--header-h) + 5rem);
   }
 
   @media (max-width: 860px) {
+    .jump-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 0.85rem 0;
+      background: none;
+      border: 0;
+      font: inherit;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .jump-current {
+      flex: 1;
+      overflow: hidden;
+      text-align: left;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: 400;
+      color: var(--green-dark);
+    }
+
+    .jump-current:not(:empty)::before {
+      content: '· ';
+      color: var(--muted);
+    }
+
+    .jump :global(.chevron) {
+      flex: none;
+      margin-left: auto;
+      transition: transform 0.2s;
+    }
+
+    .jump.open :global(.chevron) {
+      transform: rotate(180deg);
+    }
+
+    .jump ul {
+      display: none;
+      padding: 0 0 1rem;
+    }
+
+    .jump.open ul {
+      display: flex;
+    }
+
+    .jump a {
+      padding: 0.4rem 0.9rem;
+      font-size: 0.95rem;
+    }
+
+    .leistung,
+    .more li {
+      scroll-margin-top: 2.75rem;
+    }
+
     .split {
       grid-template-columns: 1fr;
     }
@@ -169,3 +247,38 @@ const rendered = await Promise.all(detailed.map(async (l) => ({ ...l, Content: (
     }
   }
 </style>
+
+<script>
+  const nav = document.querySelector<HTMLElement>('.jump');
+  const toggle = nav?.querySelector<HTMLButtonElement>('.jump-toggle');
+  const current = nav?.querySelector<HTMLElement>('.jump-current');
+  const links = [...(nav?.querySelectorAll<HTMLAnchorElement>('a[href^="#"]') ?? [])];
+
+  const setOpen = (open: boolean) => {
+    nav?.classList.toggle('open', open);
+    toggle?.setAttribute('aria-expanded', String(open));
+  };
+  toggle?.addEventListener('click', () => setOpen(!nav?.classList.contains('open')));
+  links.forEach((a) => a.addEventListener('click', () => setOpen(false)));
+
+  // Markiert den Eintrag des Abschnitts, der gerade direkt unter der Leiste beginnt.
+  const targets = links.map((a) => document.getElementById(a.hash.slice(1))).filter((el): el is HTMLElement => !!el);
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const offset = (nav?.getBoundingClientRect().bottom ?? 0) + 40;
+    const active = targets.filter((t) => t.getBoundingClientRect().top <= offset).pop();
+    const hash = active ? `#${active.id}` : '';
+    links.forEach((a) => (a.hash === hash ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current')));
+    if (current) current.textContent = links.find((a) => a.hash === hash)?.textContent ?? '';
+  };
+  addEventListener(
+    'scroll',
+    () => {
+      if (!ticking) requestAnimationFrame(update);
+      ticking = true;
+    },
+    { passive: true },
+  );
+  update();
+</script>

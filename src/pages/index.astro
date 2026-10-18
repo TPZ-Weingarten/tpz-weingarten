@@ -57,7 +57,7 @@ const { description, heading, subtitle, hero, features = [], teasers = [], intro
           <a class="btn btn--outline" href={url('/behandlungskonzept')}>Unser Behandlungskonzept <Icon name="arrow" size={18} /></a>
         </p>
       </div>
-      {introImage && <Image src={img(introImage)} alt="Einblick in unsere Praxisräume" widths={[480, 800, 1100]} sizes="(max-width: 860px) 100vw, 40vw" class="intro-pic" />}
+      {introImage && <Image src={img(introImage)} alt="Einblick in unsere Praxisräume" widths={[800, 1200, 1920]} sizes="(max-width: 860px) 100vw, 1600px" class="intro-pic" />}
     </div>
   </section>
 
@@ -215,6 +215,8 @@ const { description, heading, subtitle, hero, features = [], teasers = [], intro
     width: 100%;
     aspect-ratio: 4 / 5;
     object-fit: cover;
+    /* Ausschnitt: Behandlungsbereich rechts im Bild statt Fototapete in der Mitte */
+    object-position: 80% center;
     border-radius: var(--radius);
     box-shadow: var(--shadow);
   }

@@ -1,5 +1,6 @@
 ---
 title: Physiotherapie / Krankengymnastik
+short: Physiotherapie
 order: 10
 image: content/physiotherapie.jpg
 imageAlt: Physiotherapie / Krankengymnastik

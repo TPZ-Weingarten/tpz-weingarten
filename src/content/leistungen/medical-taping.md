@@ -1,5 +1,6 @@
 ---
 title: Medical Taping
+short: Taping
 order: 80
 image: content/tapen.jpg
 imageAlt: Tapen

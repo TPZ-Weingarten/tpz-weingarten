@@ -1,5 +1,6 @@
 ---
 title: Ergotherapie-Hirnleistungstraining
+short: Ergotherapie
 order: 20
 image: content/ergotherapie.jpg
 imageAlt: Ergotherapie

@@ -1,5 +1,6 @@
 ---
 title: KG am Gerät/Medizinische Trainingstherapie
+short: KG am Gerät / MTT
 order: 30
 image: content/kg_geraet.jpg
 imageAlt: KG am Gerät/Medizinische Trainingstherapie

@@ -32,6 +32,8 @@ const leistungen = defineCollection({
   loader: glob({ pattern: '*.md', base: './src/content/leistungen' }),
   schema: z.object({
     title: z.string(),
+    // kurzer Name für die Sprungleiste (optional, sonst title)
+    short: z.string().optional(),
     order: z.number(),
     image: imagePath.optional(),
     imageAlt: z.string().optional(),

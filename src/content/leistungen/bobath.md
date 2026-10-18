@@ -1,5 +1,6 @@
 ---
 title: KG-ZNS nach Bobath
+short: Bobath
 order: 60
 image: content/bobath.jpg
 imageAlt: KG-ZNS nach Bobath

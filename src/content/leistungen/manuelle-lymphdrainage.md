@@ -1,5 +1,6 @@
 ---
 title: Manuelle Lymphdrainage
+short: Lymphdrainage
 order: 50
 image: content/lymphdrainage.jpg
 imageAlt: Manuelle Lymphdrainage
